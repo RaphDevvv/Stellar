@@ -68,7 +68,7 @@ const Auth = () => {
       <div className="hidden md:flex w-1/2 bg-[#0B3D26] items-center justify-center p-10 text-white">
         <div className="max-w-md text-center space-y-4">
           
-          <h1 className="text-4xl font-bold">Welcome to Stellar</h1>
+          <h1 className="text-4xl font-bold">Welcome to Stellar.</h1>
           <p className="text-lg">
             {isLogin
               ? 'Log in to connect with your community.'
