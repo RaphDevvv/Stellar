@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import toastError from '../utils/toastError';
 import Axios from '../utils/axios';
 import summaryApi from '../common/summaryapi';
-import Comment from './comment';
+import Comment from './Comment';
 import { formatDistanceToNow } from 'date-fns';
 
 const Comments = ({ close, postId }) => {
