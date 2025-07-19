@@ -4,13 +4,14 @@ import { MdModeEdit } from "react-icons/md";
 import Axios from '../utils/axios';
 import summaryApi from '../common/summaryapi';
 import uploadImage from '../utils/uploadImage';
-import { updateAvatar } from '../store/userSlice';
+import { updateAvatar, userLeave } from '../store/userSlice';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Post from '../components/Post';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import Account from '../components/Account';
+import toastError from '../utils/toastError';
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -32,7 +33,7 @@ const Profile = () => {
         setRatedPosts(res.data.ratedPosts)
       }
     } catch (error) {
-      console.log(error)
+      toastError(error)
     }
   }
 
@@ -44,6 +45,7 @@ const Profile = () => {
 
       if (res.data.success) {
         navigate("/auth")
+        dispatch(userLeave())
       }
     } catch (error) {
       console.log(error)

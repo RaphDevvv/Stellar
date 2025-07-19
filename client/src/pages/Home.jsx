@@ -7,6 +7,7 @@ import Axios from '../utils/axios';
 import SubmitPost from '../components/SubmitPost';
 import { formatDistanceToNow } from 'date-fns';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import toastError from '../utils/toastError';
 
 
 const Home = () => {
@@ -25,7 +26,7 @@ const Home = () => {
         setRatedPosts(res.data?.ratedPosts)
       }
     } catch (error) {
-      console.log("error", error);
+      toastError(error)
     }
   };
 

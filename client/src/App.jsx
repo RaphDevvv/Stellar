@@ -22,7 +22,7 @@ function App() {
         dispatch(setUserDetails(res?.data?.details));
       }
     } catch (error) {
-      toastError(error)
+      console.log(error)
     } finally {
       setIsLoading(false);
     }
