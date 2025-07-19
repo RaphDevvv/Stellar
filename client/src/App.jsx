@@ -18,7 +18,7 @@ function App() {
     try {
       const res = await Axios({ ...summaryApi.get_user });
       if (res?.data?.success) {
-        dispatch(setUserDetails(res?.data));
+        dispatch(setUserDetails(res?.data?.data));
       }
     } catch (error) {
       console.log("ERROR AQUI", error);
