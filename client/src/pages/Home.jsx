@@ -26,7 +26,7 @@ const Home = () => {
         setRatedPosts(res.data?.ratedPosts)
       }
     } catch (error) {
-      toastError(error)
+      console.log(error)
     }
   };
 
