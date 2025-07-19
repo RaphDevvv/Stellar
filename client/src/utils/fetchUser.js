@@ -6,7 +6,7 @@ const fetchUser = async()=>{
         const res = await Axios({
             ...summaryApi.get_user
         })
-        return res.data
+        return res?.data?.details
     } catch (error) {
         console.log(error)
     }
