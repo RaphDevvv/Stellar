@@ -17,10 +17,8 @@ function App() {
   const fetchUser = async () => {
     try {
       const res = await Axios({ ...summaryApi.get_user });
-      const { data: resData } = res;
-
-      if (resData.success) {
-        dispatch(setUserDetails(resData.data));
+      if (res?.data?.success) {
+        dispatch(setUserDetails(res?.data));
       }
     } catch (error) {
       console.log("ERROR AQUI", error);
