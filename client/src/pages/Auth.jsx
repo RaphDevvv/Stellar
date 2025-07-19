@@ -13,6 +13,7 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ email: '', password: '', name: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Auth = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (isLogin) {
         const res = await Axios({
@@ -59,6 +61,8 @@ const Auth = () => {
       }
     } catch (error) {
       toastError(error)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +71,6 @@ const Auth = () => {
       {/* Left Side Banner */}
       <div className="hidden md:flex w-1/2 bg-[#0B3D26] items-center justify-center p-10 text-white">
         <div className="max-w-md text-center space-y-4">
-          
           <h1 className="text-4xl font-bold">Welcome to Stellar.</h1>
           <p className="text-lg">
             {isLogin
@@ -131,9 +134,12 @@ const Auth = () => {
 
             <button
               type="submit"
-              className="w-full py-2 rounded-lg bg-[#0B3D26] text-white font-semibold hover:bg-[#08311F] transition-all duration-300 cursor-pointer"
+              disabled={loading}
+              className={`w-full py-2 rounded-lg bg-[#0B3D26] text-white font-semibold transition-all duration-300 cursor-pointer hover:bg-[#08311F] ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
-              Submit
+              {loading ? 'Loading...' : 'Submit'}
             </button>
           </form>
 
