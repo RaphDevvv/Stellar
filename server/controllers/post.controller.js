@@ -38,8 +38,8 @@ export const getPostsController = async (req, res) => {
 
     const ratedPosts = posts
       .map(post => {
-        const userRating = post.stars.find(
-          s => s.userId.toString() === userId.toString()
+        const userRating = post.stars?.find((s) =>
+        s?.userId?.toString?.() === userId.toString()
         );
         if (userRating) {
           return {
