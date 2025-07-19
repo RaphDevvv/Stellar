@@ -53,8 +53,8 @@ export const register = async (req, res) => {
 }
 const cookiesOption = {
     httpOnly: true,
-    secure: true,
-    sameSite: "None"
+    secure: false,
+    sameSite: "Lax"
 }
 
 export const loginUser = async (req, res) => {
