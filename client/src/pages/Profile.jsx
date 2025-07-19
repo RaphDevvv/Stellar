@@ -28,7 +28,7 @@ const Profile = () => {
       })
 
       if (res.data.success) {
-        setPosts(res.data.data)
+        setPosts(res.data.userPosts)
         setRatedPosts(res.data.ratedPosts)
       }
     } catch (error) {
@@ -82,7 +82,7 @@ const Profile = () => {
 
       {/* User Info */}
       <div className="mt-5 px-4 max-w-3xl mx-auto text-center">
-        <h2 className="text-2xl font-bold text-gray-800">{user?.name || 'User'}</h2>
+        <h2 className="text-2xl font-bold text-gray-800 break-words">{user?.name || 'User'}</h2>
         <button onClick={logout}>
           log out
         </button>

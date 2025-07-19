@@ -12,8 +12,15 @@ const Comments = ({ close, postId }) => {
   const [commentText, setCommentText] = useState('');
   const user = useSelector((state)=>state.user)
   const [comments, setComments] = useState([])
+  const [lastCommentTime, setLastCommentTime] = useState(0);
 
   const handleComment = async ()=>{
+    const now = Date.now()
+    const timeSinceLastComment = (now - lastCommentTime) / 1000
+
+    if (timeSinceLastComment < 10) {
+      return toastError({message: "please wait before commenting again"})
+    }
     try {
         const res = await Axios({
             ...summaryApi.post_comment,
@@ -26,6 +33,7 @@ const Comments = ({ close, postId }) => {
         if (res.data.success) {
             setCommentText('')
             fetchComments()
+            setLastCommentTime(now);
         }
     } catch (error) {
         toastError(error)
@@ -66,7 +74,7 @@ const Comments = ({ close, postId }) => {
         </div>
 
         {/* Lista de comentários */}
-        <div className="flex-1 overflow-y-auto mx-6 py-4 w-screen">
+        <div className="flex-1 overflow-y-auto px-6 py-4 ">
         {
             comments.length > 0 ? (
             comments.map((_, index) => (
@@ -91,8 +99,7 @@ const Comments = ({ close, postId }) => {
           <div className="flex items-start gap-3">
             <img
               src={user.avatar}
-              alt="avatar"
-              className="w-10 h-10 rounded-full object-cover mt-1"
+              className="w-10 h-10 rounded-full object-cover mt-1 bg-[#0B3D26]"
             />
             <div className="flex-1">
               <textarea
@@ -105,7 +112,8 @@ const Comments = ({ close, postId }) => {
               <div className="w-full flex items-center mt-2">
                 <button
                     onClick={()=>handleComment()}
-                  className="bg-[#0B3D26] text-white px-4 py-2 rounded-lg hover:bg-[#08311F] transition ml-auto cursor-pointer"
+                    disabled={commentText === ''}
+                  className={`bg-[#0B3D26] text-white px-4 py-2 rounded-lg hover:bg-[#08311F] transition ml-auto cursor-pointer disabled ${commentText === '' ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
                   Send
                 </button>

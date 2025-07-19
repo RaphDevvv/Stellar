@@ -80,7 +80,7 @@ const OtherProfiles = () => {
 
       {/* User Info */}
       <div className="mt-5 px-4 max-w-3xl mx-auto text-center">
-        <h2 className="text-2xl font-bold text-gray-800">{user?.name}</h2>
+        <h2 className="text-2xl font-bold text-gray-800 break-words">{user?.name}</h2>
 
         {/* Followers Count */}
         <p className="text-sm text-gray-500 mt-1">

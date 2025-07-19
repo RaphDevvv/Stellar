@@ -54,8 +54,7 @@ const Explore = () => {
                   <div className="flex items-center gap-3">
                     <img
                       src={post.userAvatar}
-                      alt={post.userName}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-[#0B3D26]"
+                      className="w-12 h-12 rounded-full object-cover border-2 bg-[#0B3D26] border-[#0B3D26]"
                     />
                     <span className="font-semibold text-lg text-[#0B3D26]">
                       {post.userName}
