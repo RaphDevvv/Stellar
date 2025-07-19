@@ -10,17 +10,24 @@ export const register = async (req, res) => {
 
     if (exists) {
         return res.status(400).json({
-            message: "Usuário já existe",
+            message: "User already exists",
             error: true
         });
     }
 
     if (!email || !name || !password) {
         return res.status(400).json({
-            message: "preencha todos os campos",
+            message: "Fill all inputs",
             error: true
         })
     }
+
+    if (name.length > 26) {
+    return res.status(400).json({
+        message: "Your name can't be longer than 26 characters",
+        error: true
+    });
+}
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -195,7 +202,9 @@ export const fetchUserPosts = async (req, res) => {
 
     const ratedPosts = userPosts
       .map((post) => {
-        const userRating = post.stars?.find((s) => s.userId.toString() === userId.toString());
+        const userRating = post.stars?.find((s) =>
+        s?.userId?.toString?.() === userId.toString()
+        );
         if (userRating) {
           return {
             postId: post._id,
@@ -207,7 +216,7 @@ export const fetchUserPosts = async (req, res) => {
       .filter((post) => post !== null);
 
     return res.status(200).json({
-      data: userPosts,
+      userPosts,
       ratedPosts,
       success: true,
     });
@@ -255,7 +264,9 @@ export const fetchUserAndPostsByName = async (req,res)=>{
         const userPosts = await postModel.find({ userId: id }).sort({ createdAt: -1 });
 
         const ratedPosts = userPosts.map((post)=>{
-            const userRating = post?.stars.find((s)=>s.userId === userId)
+            const userRating = post.stars?.find((s) =>
+        s?.userId?.toString?.() === userId.toString()
+        );
 
             if (userRating) {
                 return {
@@ -267,7 +278,7 @@ export const fetchUserAndPostsByName = async (req,res)=>{
         }).filter((post) => post !== null);
 
         return res.status(200).json({
-            user: user,
+            user,
             userPosts,
             ratedPosts,
             success: true
