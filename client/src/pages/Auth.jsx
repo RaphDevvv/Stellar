@@ -38,8 +38,6 @@ const Auth = () => {
 
         if (res.data.success) {
           setForm({ name: "", email: "", password: "" });
-          const uDetails = await fetchUser();
-          dispatch(setUserDetails(uDetails.data));
           navigate("/");
         }
       } else {
@@ -54,8 +52,6 @@ const Auth = () => {
 
         if (res.data.success) {
           setForm({ name: "", email: "", password: "" });
-          const uDetails = await fetchUser();
-          dispatch(setUserDetails(uDetails.data));
           navigate("/");
         }
       }

@@ -7,6 +7,7 @@ import Axios from './utils/axios';
 import { useEffect, useState } from 'react';
 import { setUserDetails } from './store/userSlice';
 import { ToastContainer } from 'react-toastify';
+import toastError from './utils/toastError';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ function App() {
     try {
       const res = await Axios({ ...summaryApi.get_user });
       if (res?.data?.success) {
-        dispatch(setUserDetails(res?.data?.data));
+        dispatch(setUserDetails(res?.data?.details));
       }
     } catch (error) {
-      console.log("ERROR AQUI", error);
+      toastError(error)
     } finally {
       setIsLoading(false);
     }

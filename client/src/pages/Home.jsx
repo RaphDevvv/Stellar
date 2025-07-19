@@ -20,9 +20,9 @@ const Home = () => {
   const getPosts = async () => {
     try {
       const res = await Axios({ ...summaryApi.get_posts });
-      if (res.data.success) {
-        setPosts(res.data.posts);
-        setRatedPosts(res.data.ratedPosts)
+      if (res.data?.success) {
+        setPosts(res.data?.posts);
+        setRatedPosts(res.data?.ratedPosts)
       }
     } catch (error) {
       console.log("error", error);

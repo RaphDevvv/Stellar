@@ -149,7 +149,7 @@ export const fetchUserDetails = async (req, res) => {
 
         res.json({
             message: "detalhes do usuario",
-            data: details,
+            details,
             success: true
         })
     } catch (error) {
