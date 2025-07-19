@@ -7,7 +7,6 @@ import { setUserDetails } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import toastError from '../utils/toastError';
-import logo from '../assets/logo.png';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -37,9 +36,9 @@ const Auth = () => {
         });
 
         if (res.data.success) {
-          setForm({ name: "", email: "", password: "" });
           const uDetails = await fetchUser();
-          dispatch(setUserDetails(uDetails));
+          dispatch(setUserDetails(uDetails.data?.details));
+          setForm({ name: "", email: "", password: "" });
           navigate("/");
         }
       } else {
@@ -53,9 +52,9 @@ const Auth = () => {
         });
 
         if (res.data.success) {
+           const uDetails = await fetchUser();
+          dispatch(setUserDetails(uDetails.data?.details));
           setForm({ name: "", email: "", password: "" });
-          const uDetails = await fetchUser();
-          dispatch(setUserDetails(uDetails));
           navigate("/");
         }
       }
