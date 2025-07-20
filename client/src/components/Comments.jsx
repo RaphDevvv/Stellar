@@ -8,7 +8,7 @@ import summaryApi from '../common/summaryapi';
 import Comment from './Comment';
 import { formatDistanceToNow } from 'date-fns';
 
-const Comments = ({ close, postId }) => {
+const Comments = ({ close, postId, updateCommentNo }) => {
   const [commentText, setCommentText] = useState('');
   const user = useSelector((state)=>state.user)
   const [comments, setComments] = useState([])
@@ -34,6 +34,7 @@ const Comments = ({ close, postId }) => {
             setCommentText('')
             fetchComments()
             setLastCommentTime(now);
+            updateCommentNo()
         }
     } catch (error) {
         toastError(error)

@@ -8,6 +8,7 @@ import connectDb from "./config/dbconnect.js"
 import postRouter from "./route/post.router.js"
 import userRouter from "./route/user.router.js"
 import imageRouter from "./route/image.router.js"
+import notificationRouter from "./route/notification.router.js"
 
 
 dotenv.config()
@@ -32,6 +33,7 @@ app.get("/",(req,res)=>{
 app.use("/api/posts",postRouter)
 app.use("/api/user",userRouter)
 app.use("/api/image",imageRouter)
+app.use("/api/notification",notificationRouter)
 
 connectDb()
 

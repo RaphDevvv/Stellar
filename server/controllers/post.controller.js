@@ -1,4 +1,5 @@
 import commentModel from "../models/comment.model.js"
+import notificationModel from "../models/notification.model.js"
 import postModel from "../models/post.model.js"
 import userModel from "../models/user.model.js"
 
@@ -51,11 +52,62 @@ export const getPostsController = async (req, res) => {
       })
       .filter(post => post !== null);
 
+    const commentNo = await Promise.all(
+      posts.map(async (post) => {
+        const comments = await commentModel.find({ postId: post._id });
+        return {
+          postId: post._id,
+          count: comments.length
+        };
+      })
+    );
+
+
     return res.json({ 
       message: "posts",
       posts,
       ratedPosts,
+      commentNo,
       success: true
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true
+    });
+  }
+};
+
+export const getPostById = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const userId = req.userId;
+
+    const post = await postModel.findOne({ _id: id });
+    const comments = await commentModel.find({postId : id})
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found"
+      });
+    }
+
+    let userRating = 0;
+
+    const userStar = post.stars?.find(star => star.userId.toString() === userId.toString());
+
+    if (userStar) {
+      userRating = userStar.stars;
+    }
+
+    const commentNo = comments?.length || 0;
+
+    return res.status(200).json({
+      success: true,
+      post,
+      userStar,
+      commentNo
     });
   } catch (error) {
     return res.status(500).json({
@@ -118,6 +170,24 @@ export const uploadComment = async (req,res)=>{
 
     await newComment.save()
 
+    const post = await postModel.findOne({_id : postId})
+
+    if (post.userId.toString() !== userId.toString()) {
+      const notification = notificationModel({
+        userId: post.userId,
+        type: "comment",
+        message: `has commented on your post`,
+        fromUser: {name: user.name,
+        avatar: user.avatar},
+        commentText: textContent,
+        postId: postId,
+        postPicture: post?.imageContent,
+        isRead: false
+      })
+
+      await notification.save()
+    }
+
     return res.status(200).json({
       success: true
     })
@@ -134,7 +204,7 @@ export const fetchComments = async (req,res)=>{
   try {
     const {postId} = req.body
 
-    const comments = await commentModel.find({ postId : postId }).sort({crearedAt: -1})
+    const comments = await commentModel.find({ postId : postId }).sort({createdAt: -1})
 
     return res.status(200).json({
       comments,

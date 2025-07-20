@@ -6,6 +6,8 @@ import Auth from '../pages/Auth';
 import Profile from '../pages/Profile';
 import OtherProfiles from '../pages/OtherProfiles';
 import Explore from '../pages/Explore';
+import Notifications from '../pages/Notifications';
+import FullPost from '../pages/FullPost';
 
 const router = createBrowserRouter([
 
@@ -31,6 +33,16 @@ const router = createBrowserRouter([
                     {
                         path: "/explore",
                         element: <Explore/>
+                    },
+
+                    {
+                        path: "/notifications",
+                        element: <Notifications/>
+                    },
+
+                    {
+                        path: "/post/:id",
+                        element: <FullPost/>
                     }
                 ]
             },

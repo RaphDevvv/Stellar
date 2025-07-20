@@ -6,6 +6,11 @@ const summaryApi = {
         method: 'get'
     },
 
+        get_posts_by_id : {
+        url : '/api/posts/get-by-id',
+        method: 'post'
+    },
+
         most_liked_posts : {
         url : '/api/posts/most-liked',
         method: 'get'
@@ -79,6 +84,21 @@ const summaryApi = {
 
         follow_user : {
         url : '/api/user/follow',
+        method: 'post'
+    },
+
+    get_notifications : {
+        url : '/api/notification/get',
+        method: 'get'
+    },
+
+        check_unread_notifications : {
+        url : '/api/notification/check-unread',
+        method: 'get'
+    },
+
+     set_as_read : {
+        url : '/api/notification/set-as-read',
         method: 'post'
     }
 }

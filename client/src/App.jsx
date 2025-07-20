@@ -7,7 +7,6 @@ import Axios from './utils/axios';
 import { useEffect, useState } from 'react';
 import { setUserDetails } from './store/userSlice';
 import { ToastContainer } from 'react-toastify';
-import toastError from './utils/toastError';
 
 function App() {
   const dispatch = useDispatch();
